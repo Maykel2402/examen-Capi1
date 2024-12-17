@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tareas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Lista de Tareas Pendientes</h1>
+        <a href="{{ url_for('add_task') }}">Agregar Tarea</a>
+    </header>
+    
+    <section>
+        <ul id="task-list">
+            {% for task in tasks %}
+                <li class="{{ 'completed' if task.completed else '' }}">
+                    {{ task.name }}
+                    <a href="{{ url_for('complete_task', task_index=loop.index0) }}" class="complete-btn">✔️</a>
+                    <a href="{{ url_for('delete_task', task_index=loop.index0) }}" class="delete-btn">❌</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</body>
+</html>
